@@ -1,4 +1,6 @@
 using BuildingBlocks.Extentions;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.AddAuthorizationServices();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -25,5 +28,11 @@ app.UseHttpsRedirection();
 app.UseAuthorizationServices();
 
 app.MapControllers();
+
+app.UseHealthChecks("/health",
+    new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
 
 await app.RunAsync();
