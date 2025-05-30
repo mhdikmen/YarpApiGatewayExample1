@@ -44,6 +44,7 @@ namespace AuthService.Controllers
             {
                 new Claim(JwtRegisteredClaimNames.Sub, username),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Name, username),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configKey));
