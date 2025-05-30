@@ -20,6 +20,7 @@ namespace BuildingBlocks.Extentions
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                    .AddJwtBearer(options =>
                    {
+                       options.Authority = issuer;
                        options.TokenValidationParameters = new TokenValidationParameters
                        {
                            ValidateIssuer = true,
